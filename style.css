@@ -1,0 +1,19 @@
+body {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 60px;
+}
+
+/* ------------------- NAV, HEADER, ABOUT -----------------------  */
+
+.logo {
+  height: 10px;
+}
+
+.containercards {
+  height: 100px;
+}
