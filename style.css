@@ -5,15 +5,11 @@ body {
 }
 
 html {
-  font-size: 60px;
+  font-size: 20px;
 }
 
-/* ------------------- NAV, HEADER, ABOUT -----------------------  */
 
 .logo {
-  height: 10px;
+  width: 150px;
 }
 
-.containercards {
-  height: 100px;
-}
