@@ -76,3 +76,34 @@ const read = (selectedTask) => {
 // simple test of the read function
 
 console.log(read(4));
+
+
+// add a new task function -------- Cris ----------
+
+
+
+let newTask = document.querySelector("#new-task");
+let addTaskBtn = document.querySelector("#addTask");
+let taskList = document.querySelector(".todo-list ul");
+
+
+let addNewTask = function (task) {
+    // Creating a new item
+  let listItem = document.createElement("li"); 
+  let label = document.createElement("label"); 
+
+  label.innerText = task;
+
+  listItem.appendChild(label);
+  return listItem;
+};
+
+//ADD THE NEW TASK INTO THE LIST
+let addTask = function () {
+  let listItem = addNewTask(newTask.value);
+  taskList.appendChild(listItem);
+  newTask.value = "";
+
+};
+
+addTaskBtn.addEventListener("click", addTask);
