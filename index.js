@@ -87,7 +87,7 @@ let toDoContainer = document.getElementById("toDoContainer");
 let inputField = document.getElementById("inputField");
 
 addToDoButton.addEventListener("click", function () {
-  let task = document.createElement("p");
+  let task = document.createElement("label");
   task.classList.add("text");
   task.innerText = inputField.value;
   toDoContainer.appendChild(task);

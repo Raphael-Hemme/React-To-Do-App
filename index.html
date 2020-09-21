@@ -62,17 +62,19 @@
 
                   <div class="content"> <!--content div -->
 
-                    <ul class="list-group list-group-horizontal-xs">
+                    <ul class="list-group list-group-horizontal-xs" id="toDoContainer">
                       <li class="list-group-item">
+                        <!--content div  <div class="to-dos"> -->
                         <input type="checkbox" name="checkbox" value=" item._id" onchange="this.form.submit()">
-                        <p> To do list</p> <i class="fas fa-trash-alt" id="trash"></i>
+                        <label> To do list</label> <i class="fas fa-trash-alt" id="trash"></i>
+                        <!-- </div> -->
                       </li>
                     </ul>
                   </div>
                   <div class="add-item" >  <!--add div -->
                     <input id="inputField" type="text" name="newItem" placeholder="New Item" autocomplete="off">
                     <button id="add-item" type="submit" name="list" value="add-name">+</button>
-                    <div class="to-dos" id="toDoContainer">
+                    <div>
                     </div>
                   </div>
               </div>
