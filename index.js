@@ -76,3 +76,25 @@ const read = (selectedTask) => {
 // simple test of the read function
 
 console.log(read(4));
+
+
+// add a new task function -------- Cris ----------
+
+
+
+let addToDoButton = document.getElementById("add-item");
+let toDoContainer = document.getElementById("toDoContainer");
+let inputField = document.getElementById("inputField");
+
+addToDoButton.addEventListener("click", function () {
+  let task = document.createElement("label");
+  task.classList.add("text");
+  task.innerText = inputField.value;
+  toDoContainer.appendChild(task);
+  inputField.value = "";
+  task.addEventListener("click", function () {});
+  
+});
+
+
+// !!------------- END ADD TASK FUNCTION --------------!!

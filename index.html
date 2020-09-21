@@ -40,10 +40,10 @@
 
       <main class="container">
         <div class="row justify-content-center">
-          <div class="col-sm-3">
+          <div class="col-sm-6">
             <div class="card">
               <div class="card-body">
-                <h5 class="card-title">Weekend</h5>
+                <h5 class="card-title">To-do List</h5>
                 <div class="box">
                   <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                     <div class="btn-group mr-2" role="group" aria-label="First group">
@@ -62,18 +62,21 @@
 
                   <div class="content"> <!--content div -->
 
-                    <ul class="list-group list-group-horizontal-xs">
+                    <ul class="list-group list-group-horizontal-xs" id="toDoContainer">
                       <li class="list-group-item">
+                        <!--content div  <div class="to-dos"> -->
                         <input type="checkbox" name="checkbox" value=" item._id" onchange="this.form.submit()">
-                        <p> To do list</p> <i class="fas fa-trash-alt" id="trash"></i>
+                        <label> To do list</label> <i class="fas fa-trash-alt" id="trash"></i>
+                        <!-- </div> -->
                       </li>
                     </ul>
                   </div>
                   <div class="add-item" >  <!--add div -->
-                    <input type="text" name="newItem" placeholder="New Item" autocomplete="off">
-                    <button type="submit" name="list" value="add-name" id="add-item">+</button>
+                    <input id="inputField" type="text" name="newItem" placeholder="New Item" autocomplete="off">
+                    <button id="add-item" type="submit" name="list" value="add-name">+</button>
+                    <div>
+                    </div>
                   </div>
-                </div>
               </div>
             </div>
           </div>
@@ -83,7 +86,7 @@
 
       <footer>
         <h3>
-        App made with ❤️ and a lots of WBS by Chris, Teresa, Raphael and Magima
+        App made with ❤️ and a lots of WBS by Cris, Teresa, Raphael and Magima
         </h3>
       </footer>
     </body>
