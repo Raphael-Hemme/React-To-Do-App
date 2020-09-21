@@ -82,28 +82,19 @@ console.log(read(4));
 
 
 
-let newTask = document.querySelector("#new-task");
-let addTaskBtn = document.querySelector("#addTask");
-let taskList = document.querySelector(".todo-list ul");
+let addToDoButton = document.getElementById("add-item");
+let toDoContainer = document.getElementById("toDoContainer");
+let inputField = document.getElementById("inputField");
+
+addToDoButton.addEventListener("click", function () {
+  let task = document.createElement("p");
+  task.classList.add("text");
+  task.innerText = inputField.value;
+  toDoContainer.appendChild(task);
+  inputField.value = "";
+  task.addEventListener("click", function () {});
+  
+});
 
 
-let addNewTask = function (task) {
-    // Creating a new item
-  let listItem = document.createElement("li"); 
-  let label = document.createElement("label"); 
-
-  label.innerText = task;
-
-  listItem.appendChild(label);
-  return listItem;
-};
-
-//ADD THE NEW TASK INTO THE LIST
-let addTask = function () {
-  let listItem = addNewTask(newTask.value);
-  taskList.appendChild(listItem);
-  newTask.value = "";
-
-};
-
-addTaskBtn.addEventListener("click", addTask);
+// !!------------- END ADD TASK FUNCTION --------------!!
