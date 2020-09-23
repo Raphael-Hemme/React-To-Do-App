@@ -96,9 +96,9 @@ const testArray = [
 // let selectedTask = document.getElementById('placeholderplaceholderplaceholder */)  // placeholder is the place for function that will listen for a click on each of the divs with the individual tasks. I Have to work on that. 
 
 
-//const read = (selectedTask) => {
-//  return testArray[selectedTask];
-//}
+// const read = (selectedTask) => {
+//   return testArray[selectedTask];
+// }
 
 // simple test of the read function
 
@@ -109,8 +109,10 @@ const testArray = [
 
 
 
-
-
+let addToDoButton = document.getElementById("add-item");
+let toDoContainer = document.getElementById("toDoContainer");
+let inputField = document.getElementById("inputField");
+/* 
 addToDoButton.addEventListener("click", function () {
   let task = document.createElement("label");
   task.classList.add("text");
@@ -122,6 +124,60 @@ addToDoButton.addEventListener("click", function () {
 //  addToDoTaskToArray(testTaskInput);
 //  console.log(arrayOfTasks);
 });
-
+ */
 
 // !!------------- END ADD TASK FUNCTION --------------!!
+
+
+
+///////////////////////////////////////////////////////////////////
+// ADD list item
+//// 1. class commented out
+//// 2. AppendChild listitem to ul.
+
+
+addToDoButton.addEventListener("click", function () {
+  let li = document.createElement("li");
+  li.classList.add('toDoParent');
+  li.innerHTML = `<input type="checkbox" name="checkbox" value=" item._id" onchange="this.form.submit()"><label>${inputField.value}</label> <i class="fas fa-trash-alt trashIcon"></i>`;
+  toDoContainer.appendChild(li);
+  let trashIcon = document.querySelectorAll('.trashIcon');
+  for (let icon of trashIcon){
+    icon.addEventListener("click", deleteListItem);
+  }
+  inputField.value = "";  
+});
+
+// ///////////////////////////////////////////////////////////////////
+// DELETE list item 
+
+
+console.log(trashIcon.parentNode);
+
+
+function deleteListItem (e) {
+
+  const parent = e.currentTarget.closest('.toDoParent');
+  //console.log(parent);
+  toDoContainer.removeChild(parent);
+  // let firstParentNode = e.target.parentNode;
+  // let grandParentNode = firstParentNode.parentNode;
+  // grandParentNode.removeChild(firstParentNode);
+ // console.log(e.currentTarget);
+}
+
+
+
+
+
+///////////////////////////////////////////////////////////////////
+// CLEAR => reset function
+
+let reset = document.querySelector(".refresh");
+function resetList (e) {
+  toDoContainer.innerHTML = "";
+}
+
+reset.addEventListener("click", resetList);
+
+
