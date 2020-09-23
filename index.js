@@ -1,5 +1,39 @@
-// Just a test array we can experiment with and delete when our functions are working
+// seting global variables
 
+let addToDoButton = document.getElementById("add-item");
+let toDoContainer = document.getElementById("toDoContainer");
+let inputField = document.getElementById("inputField");
+
+let arrayOfTasks = [];
+
+//let nextToGenerateTaskNumber = generateTaskNumberForNewTask();
+//const generateTaskNumberForNewTask = () => {
+//  if (testArray.length >= 1) {
+//    return testArray.length +1;
+//  } else {
+//    return 1;
+//  }
+//}
+
+
+class ToDoTask {
+  constructor (taskContent) {
+    this.taskContent = taskContent;
+    this.status = ''; 
+  }
+
+}
+
+const addToDoTaskToArray = (value) => {
+  let newlyCreatedTask = new ToDoTask(value);
+  arrayOfTasks.push(newlyCreatedTask);
+}
+
+addToDoTaskToArray('Say Hi');
+console.log(arrayOfTasks);
+
+// Just a test array we can experiment with and delete when our functions are working
+/*
 const testArray = [
   {
     'task-number' : 1,
@@ -38,7 +72,7 @@ const testArray = [
     'status' : 'done'  
   } 
 ] 
-
+*/
 // Global variable declarations that might be helpful for all our functions
 
 //const cardAllTasks = document.getElementById('card');
@@ -53,14 +87,7 @@ const testArray = [
 // OR in almost the same way it can be used to dynamically set an html id attribute with the value of the nextToGenerateTaskNumber to that html element in order
 // to address and retrieve the element later with the read function.
 
-// let nextToGenerateTaskNumber = generateTaskNumberForNewTask();
-// const generateTaskNumberForNewTask = () => {
-//  if (testArray.length >= 1) {
-//    return testArray.length +1;
-//  } else {
-//    return 1;
-//  }
-//}
+
 
 
 // First attempt at writing a read function aka retrieve function. -> Work in Progress... Currently it only returns the task object when a task number is manually entered. I will attach it to an event listener when we are further along with our code.
@@ -69,31 +96,31 @@ const testArray = [
 // let selectedTask = document.getElementById('placeholderplaceholderplaceholder */)  // placeholder is the place for function that will listen for a click on each of the divs with the individual tasks. I Have to work on that. 
 
 
-const read = (selectedTask) => {
-  return testArray[selectedTask];
-}
+//const read = (selectedTask) => {
+//  return testArray[selectedTask];
+//}
 
 // simple test of the read function
 
-console.log(read(4));
+//console.log(read(4));
 
 
 // add a new task function -------- Cris ----------
 
 
 
-let addToDoButton = document.getElementById("add-item");
-let toDoContainer = document.getElementById("toDoContainer");
-let inputField = document.getElementById("inputField");
+
 
 addToDoButton.addEventListener("click", function () {
   let task = document.createElement("label");
   task.classList.add("text");
+//  let testTaskInput = inputField.value;
   task.innerText = inputField.value;
   toDoContainer.appendChild(task);
   inputField.value = "";
   task.addEventListener("click", function () {});
-  
+//  addToDoTaskToArray(testTaskInput);
+//  console.log(arrayOfTasks);
 });
 
 
