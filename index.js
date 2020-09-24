@@ -4,7 +4,11 @@ let addToDoButton = document.getElementById("add-item");
 let toDoContainer = document.getElementById("toDoContainer");
 let inputField = document.getElementById("inputField");
 
-let arrayOfTasks = [];
+
+
+
+// Use a parent / super class
+
 
 //let nextToGenerateTaskNumber = generateTaskNumberForNewTask();
 //const generateTaskNumberForNewTask = () => {
@@ -15,22 +19,81 @@ let arrayOfTasks = [];
 //  }
 //}
 
-
 class ToDoTask {
   constructor (taskContent) {
     this.taskContent = taskContent;
     this.status = ''; 
   }
+  markAsDone (event) {
+    const parent = event.currentTarget.closest('li');
+    if (!this.status) {
+      this.status='done';
+      parent.children[1].classList.toggle("mark-done");
+    } else {
+      this.status='';
+      parent.children[1].classList.toggle("mark-done");
+    };
+  }
+  deleteListItem (e) {
+    const myList = e.currentTarget.closest('.toDoParent');
+    //console.log(parent);
+    toDoContainer.removeChild(myList);
+    // let firstParentNode = e.target.parentNode;
+    // let grandParentNode = firstParentNode.parentNode;
+    // grandParentNode.removeChild(firstParentNode);
+   // console.log(e.currentTarget);
+  }
 
 }
 
-const addToDoTaskToArray = (value) => {
+class ToDoList {
+  constructor () {
+    this.allTasks = [];
+  }
+  
+/////////////   Add to the DOM - Cristiani
+  createTask () { 
+    let li = document.createElement("li");
+    li.classList.add('toDoParent');
+    li.innerHTML = `<input type="checkbox" name="checkbox" value=" item._id"><label>${inputField.value}</label> <i class="fas fa-trash-alt trashIcon"></i>`;
+    toDoContainer.appendChild(li);
+    ////   Add trash icon to every added task and add event listener to it (part of delete function - Teresa)
+      const newTask = this.addTask(inputField.value);
+    inputField.value = "";
+    
+    let trashIcon = document.querySelectorAll('.trashIcon');
+    for (let icon of trashIcon){
+      icon.addEventListener("click", newTask.deleteListItem);
+    }
+  
+    ////   Add checkbox to every added task and add event listener to it (part of mark-as-done func. - Raphael)
+    let checkBox = document.querySelectorAll('input[type="checkbox"]');
+    for (let box of checkBox){
+      box.addEventListener("change", newTask.markAsDone);
+    };
+  }  
+
+/////////////   Add to the Array
+  addTask (value) { 
   let newlyCreatedTask = new ToDoTask(value);
-  arrayOfTasks.push(newlyCreatedTask);
+  this.allTasks.push(newlyCreatedTask);
+  console.log(this.allTasks);
+  return newlyCreatedTask
+  }
+
+/////////////   Mark as Done 
+
 }
 
-addToDoTaskToArray('Say Hi');
-console.log(arrayOfTasks);
+
+const myList = new ToDoList();
+
+
+
+
+
+//addToDoTaskToArray('Say Hi');
+//console.log(arrayOfTasks);
 
 // Just a test array we can experiment with and delete when our functions are working
 /*
@@ -73,27 +136,13 @@ const testArray = [
   } 
 ] 
 */
-// Global variable declarations that might be helpful for all our functions
 
 //const cardAllTasks = document.getElementById('card');
-
-
-// A task number generator - relevant for the add task function but in consequence also for the read function.
-// The simple function just takes the length of the Array increments it by one if it is greater than or equal to 1 otherwise it 
-// returns 1 (because the Array has to be empty). This way the task numbers start with 1 instead of the array index of 0.
-// In the process of the add function (Cris) this 'nextToGenerateTaskNumber' can then 
-// be assigned as the value to the object's key 'task-number' (e.g.: testArray[nextToGenerateTaskNu-1].task-number = currentTaskNumber) AND 
-// it can be used to either dynamically add a `data-id="${nextToGenerateTaskNumber}"` to the task's html element (e.g. the div that contains the whole task)
-// OR in almost the same way it can be used to dynamically set an html id attribute with the value of the nextToGenerateTaskNumber to that html element in order
-// to address and retrieve the element later with the read function.
-
 
 
 
 // First attempt at writing a read function aka retrieve function. -> Work in Progress... Currently it only returns the task object when a task number is manually entered. I will attach it to an event listener when we are further along with our code.
 
-
-// let selectedTask = document.getElementById('placeholderplaceholderplaceholder */)  // placeholder is the place for function that will listen for a click on each of the divs with the individual tasks. I Have to work on that. 
 
 
 // const read = (selectedTask) => {
@@ -105,29 +154,6 @@ const testArray = [
 //console.log(read(4));
 
 
-// add a new task function -------- Cris ----------
-
-
-
-let addToDoButton = document.getElementById("add-item");
-let toDoContainer = document.getElementById("toDoContainer");
-let inputField = document.getElementById("inputField");
-/* 
-addToDoButton.addEventListener("click", function () {
-  let task = document.createElement("label");
-  task.classList.add("text");
-//  let testTaskInput = inputField.value;
-  task.innerText = inputField.value;
-  toDoContainer.appendChild(task);
-  inputField.value = "";
-  task.addEventListener("click", function () {});
-//  addToDoTaskToArray(testTaskInput);
-//  console.log(arrayOfTasks);
-});
- */
-
-// !!------------- END ADD TASK FUNCTION --------------!!
-
 
 
 ///////////////////////////////////////////////////////////////////
@@ -136,35 +162,16 @@ addToDoButton.addEventListener("click", function () {
 //// 2. AppendChild listitem to ul.
 
 
-addToDoButton.addEventListener("click", function () {
-  let li = document.createElement("li");
-  li.classList.add('toDoParent');
-  li.innerHTML = `<input type="checkbox" name="checkbox" value=" item._id" onchange="this.form.submit()"><label>${inputField.value}</label> <i class="fas fa-trash-alt trashIcon"></i>`;
-  toDoContainer.appendChild(li);
-  let trashIcon = document.querySelectorAll('.trashIcon');
-  for (let icon of trashIcon){
-    icon.addEventListener("click", deleteListItem);
-  }
-  inputField.value = "";  
-});
+addToDoButton.addEventListener("click", myList.createTask.bind(myList));
 
 // ///////////////////////////////////////////////////////////////////
 // DELETE list item 
 
 
-console.log(trashIcon.parentNode);
+//console.log(trashIcon.parentNode);
 
 
-function deleteListItem (e) {
 
-  const parent = e.currentTarget.closest('.toDoParent');
-  //console.log(parent);
-  toDoContainer.removeChild(parent);
-  // let firstParentNode = e.target.parentNode;
-  // let grandParentNode = firstParentNode.parentNode;
-  // grandParentNode.removeChild(firstParentNode);
- // console.log(e.currentTarget);
-}
 
 
 
