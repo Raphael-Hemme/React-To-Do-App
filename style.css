@@ -72,6 +72,10 @@ h1 {
   background-color: #fff;
 }
 
+.mark-done {
+  color: #6e6e6e;
+  text-decoration: line-through;
+}
 
 input:checked+p {
   text-decoration: line-through;
