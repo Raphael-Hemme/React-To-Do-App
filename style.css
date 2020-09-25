@@ -39,7 +39,7 @@ h1 {
 }
 
 .box {
-  max-width: 400px;
+  max-width: 85%;
   margin: 50px auto;
   background: #eeeeee;
   border-radius: 5px;
@@ -57,6 +57,18 @@ h1 {
   text-align: center;
 }
 
+#heading-weather {
+  height: 5em;
+  background: #62a9ab73;
+}
+.well {
+  font-size: 30px;
+  margin: 1em;
+  color: #fff;
+  background-color: #5f9ea036;
+  border-radius: 1em;
+  padding: .4em;
+}
 .item {
   min-height: 70px;
   display: flex;
@@ -109,10 +121,7 @@ form.item {
   margin: 1rem;
 }
 
-/* .mr-2  {
-  border-bottom-right-radius: .25em;
-  border-bottom-left-radius: .25rem;
-} */
+
 
 .btn-secondary {
   /* color: black;
@@ -129,6 +138,19 @@ form.item {
 ul {
   list-style: none;
 }
+/* Edit Task */
+
+ul li input[type=text] {
+  display: none;
+}
+
+ul li.editMode input[type=text] {
+  display: block;
+}
+
+ul li.editMode label {
+  display: none;
+}
 
 li {
   border-bottom: 1px solid rgb(231, 231, 231);
@@ -136,6 +158,19 @@ li {
   padding-top: 15px;
   font-size: 1.2em;
   color: #2f4f4f;
+}
+/* label {
+  display: inline-block;
+  margin-bottom: .5rem;
+  margin-right: 10rem;
+  padding: .6em;
+} */
+label {
+  display: inline-block;
+  margin-bottom: .5rem;
+  margin-right: 1rem;
+  padding: .6em;
+  width: 210px;
 }
 
 
@@ -161,6 +196,30 @@ li {
   color: #CDC7CB;  
   width: 30px;
   height: 30px;
+}
+#refresh {
+  position: relative;
+  width: 45px;
+  height: 45px;
+  font-weight: 900;
+  font-size: 43px;
+  background-color: #2b2d30ad;
+  padding: .1em;
+  border-radius: .1em;
+}
+   #edit-icon {
+  position: relative;
+  background-color: #4a29291f;
+  left: -2em;
+  border-radius: .5em;
+}
+
+#trash-icon {
+  position: relative;
+  right: -3em;
+  font-size: 30px;
+  top: .3em;
+
 }
 
 
@@ -199,5 +258,53 @@ footer {
 i {
   cursor: pointer;
 }
+
+
+/* search buttons */
+
+#search {
+  float: right;
+  margin-top: 9px;
+  width: 250px;
+}
+
+.search {
+  padding: 5px 0;
+  width: 230px;
+  height: 30px;
+  position: relative;
+  line-height: 22px;
+  right: -6em;
+  margin: 2em;
+}
+
+  .search input {
+      position: absolute;
+      width: 0px;
+      float: Left;
+      margin-left: 210px;
+      -webkit-transition: all 0.7s ease-in-out;
+      -moz-transition: all 0.7s ease-in-out;
+      -o-transition: all 0.7s ease-in-out;
+      transition: all 0.7s ease-in-out;
+      height: 30px;
+      line-height: 18px;
+      padding: 0 2px 0 2px;
+      border-radius:1px;
+  }
+
+      .search:hover input, .search input:focus {
+          width: 200px;
+          margin-left: 0px;
+      }
+
+.btn {
+  height: 30px;
+  position: absolute;
+  right: 0;
+  top: 5px;
+  border-radius:1px;
+}
+
 
 
