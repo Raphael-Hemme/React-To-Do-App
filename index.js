@@ -85,12 +85,8 @@ class ToDoList {
 
 }
 
-
+/// t´just to test
 const myList = new ToDoList();
-
-
-
-
 
 //addToDoTaskToArray('Say Hi');
 //console.log(arrayOfTasks);
