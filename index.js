@@ -39,79 +39,27 @@ const testArray = [
   } 
 ] 
 
-// Global variable declarations that might be helpful for all our functions
-
-//const cardAllTasks = document.getElementById('card');
-
-
-// A task number generator - relevant for the add task function but in consequence also for the read function.
-// The simple function just takes the length of the Array increments it by one if it is greater than or equal to 1 otherwise it 
-// returns 1 (because the Array has to be empty). This way the task numbers start with 1 instead of the array index of 0.
-// In the process of the add function (Cris) this 'nextToGenerateTaskNumber' can then 
-// be assigned as the value to the object's key 'task-number' (e.g.: testArray[nextToGenerateTaskNu-1].task-number = currentTaskNumber) AND 
-// it can be used to either dynamically add a `data-id="${nextToGenerateTaskNumber}"` to the task's html element (e.g. the div that contains the whole task)
-// OR in almost the same way it can be used to dynamically set an html id attribute with the value of the nextToGenerateTaskNumber to that html element in order
-// to address and retrieve the element later with the read function.
-
-// let nextToGenerateTaskNumber = generateTaskNumberForNewTask();
-// const generateTaskNumberForNewTask = () => {
-//  if (testArray.length >= 1) {
-//    return testArray.length +1;
-//  } else {
-//    return 1;
-//  }
-//}
-
-
-// First attempt at writing a read function aka retrieve function. -> Work in Progress... Currently it only returns the task object when a task number is manually entered. I will attach it to an event listener when we are further along with our code.
-
-
-// let selectedTask = document.getElementById('placeholderplaceholderplaceholder */)  // placeholder is the place for function that will listen for a click on each of the divs with the individual tasks. I Have to work on that. 
-
-
-// const read = (selectedTask) => {
-//   return testArray[selectedTask];
-// }
-
-// simple test of the read function
-
-//console.log(read(4));
-
-
 // add a new task function -------- Cris ----------
-
-
 
 let addToDoButton = document.getElementById("add-item");
 let toDoContainer = document.getElementById("toDoContainer");
+console.log(toDoContainer);
 let inputField = document.getElementById("inputField");
-/* 
-addToDoButton.addEventListener("click", function () {
-  let task = document.createElement("label");
-  task.classList.add("text");
-  task.innerText = inputField.value;
-  toDoContainer.appendChild(task);
-  inputField.value = "";
-  task.addEventListener("click", function () {});
-  
-});
- */
 
 // !!------------- END ADD TASK FUNCTION --------------!!
-
-
-
-///////////////////////////////////////////////////////////////////
-// ADD list item
-//// 1. class commented out
-//// 2. AppendChild listitem to ul.
 
 
 addToDoButton.addEventListener("click", function () {
   let li = document.createElement("li");
   li.classList.add('toDoParent');
-  li.innerHTML = `<input type="checkbox" name="checkbox" value=" item._id" onchange="this.form.submit()"><label>${inputField.value}</label> <i class="fas fa-trash-alt trashIcon"></i>`;
+  li.innerHTML = `<input type="checkbox" name="checkbox" value=" item._id" onchange="this.form.submit()">
+  <label class="editFelix" contenteditable ="true">${inputField.value}</label> 
+  <i class="fas fa-trash-alt trashIcon" id="trash-icon"></i>
+  <button type="button" class="btn btn-secondary edit" id="edit-icon">edit</button>
+ 
+  `;
   toDoContainer.appendChild(li);
+
   let trashIcon = document.querySelectorAll('.trashIcon');
   for (let icon of trashIcon){
     icon.addEventListener("click", deleteListItem);
@@ -122,8 +70,7 @@ addToDoButton.addEventListener("click", function () {
 // ///////////////////////////////////////////////////////////////////
 // DELETE list item 
 
-
-console.log(trashIcon.parentNode);
+// console.log(trashIcon.parentNode);
 
 
 function deleteListItem (e) {
@@ -134,21 +81,208 @@ function deleteListItem (e) {
   // let firstParentNode = e.target.parentNode;
   // let grandParentNode = firstParentNode.parentNode;
   // grandParentNode.removeChild(firstParentNode);
- // console.log(e.currentTarget);
+  // console.log(e.currentTarget);
 }
 
 
+  ///////////////////////////////////////////////////////////////////
+ // CLEAR => reset function
 
-
-
-///////////////////////////////////////////////////////////////////
-// CLEAR => reset function
-
-let reset = document.querySelector(".refresh");
-function resetList (e) {
+  let reset = document.querySelector(".refresh");
+  function resetList (e) {
   toDoContainer.innerHTML = "";
 }
 
 reset.addEventListener("click", resetList);
+
+
+
+  const myDB = [ ];
+  const index = ''; 
+  const  todoItemLists = document.querySelectorAll('#toDoContainer li');
+   console.log(todoItemLists);  
+   console.log(myDB);   
+ 
+
+class Todo {
+
+  constructor(todoItem){
+     this.todoItem = todoItem;
+    //  this.id = id;
+  //   this.done = done;
+  }
+}
+
+// ----add event listners------------
+
+class UI {
+
+  
+
+   displayDate() { 
+
+    let divBox = document.querySelector(".clockDate");
+    console.log(divBox);
+
+              //---create--div-------
+              const newDiv = document.createElement('div')
+              console.log(newDiv)
+
+              newDiv.className = "well"
+
+              newDiv.innerHTML = `
+              ${this.getDate()}
+              `
+      divBox.appendChild(newDiv);
+
+    }
+
+         //----add clock function
+
+         getDate(){
+
+          let time = new Date();
+  
+          let options = {
+              
+              weekday: 'long',
+              time: 'numeric',
+      
+             };
+      
+             let currentTime = time.toLocaleTimeString('en-US', options);
+             return currentTime;
+      
+         }
+    
+  
+       editTodoItem(target){
+
+        console.log('do edit');
+        //----traverse to parent node  //---------for todoLIst listItem
+        let todoLIst = this.parentNode; 
+        let editInput = todoLIst.querySelector("input[type=text]");
+        let label = todoLIst.querySelector("label");
+        let containsClass = todoLIst.classList.contains("editMode");
+        
+        if (containsClass) {
+            label.innerText = editInput.value;
+        } else {
+            editInput.value = label.innerText;
+        }
+        todoLIst.classList.toggle("editMode");
+         
+    
+    }
+     //
+  
+     joinTaskEvents( ) {
+      // select listitems chidlren
+      let checkBox = taskListItem.querySelector('input[type="checkbox"]');
+      let editButton = taskListItem.querySelector("button.edit");
+      let deleteButton = taskListItem.querySelector("button.delete");
+      //bind editTask to edit button
+      editButton.onclick = editTask;
+      //bind deleteTask to delete button
+      deleteButton.onclick = deleteTask;
+      //bind checkBoxEventHandler to checkbox
+      checkBox.onchange = checkBoxEventHandler;
+  }
+
+    // creating new tasks on each edit
+    editTask(){
+      
+        // create List Item
+        // let todoLIst = document.createElement("li");
+        // // input checkbox
+        // let checkBox = document.createElement("input");
+        // // label
+        // let label = document.createElement("label");
+        // // input (text)
+        // let editInput = document.createElement("input");
+        // button.edit
+        let editButton = document.createElement("button");
+    
+        // element to modified 
+        checkBox.type = "checkBox";
+        editInput.type = "text";
+        editButton.innerText = "Edit";
+        editButton.className = "edit";
+        todoLIst.appendChild(checkBox);
+        todoLIst.appendChild(label);
+        todoLIst.appendChild(editInput);
+        todoLIst.appendChild(editButton);
+        todoLIst.appendChild(deleteButton);
+        return todoLIst;
+     }
+
+}
+//---------------innitiate time---------------
+
+
+const ui = new UI();
+//time
+ ui.displayDate();
+ document.addEventListener("DOMContentLoaded", displayDate());
+
+//Edit event listners for edit todo-----
+
+document.querySelector('#toDoContainer').addEventListener('click',
+function (e) {
+   
+  let parentElement = document.querySelector('#toDoContainer');
+  console.log(parentElement);
+
+console.log(parentElement.children);
+
+  const childrenElement = parentElement.children;
+  console.log(childrenElement);
+
+
+     for(i = 0; i <  childrenElement.length; i++)  {
+        console.log(childrenElement[i]);
+        console.log(childrenElement[i].childNodes);
+        console.log(childrenElement[i].childNodes[2]);
+        console.log(childrenElement[i].childNodes[2].innerHTML);
+        const textNode = childrenElement[i].childNodes[2].innerHTML;
+
+        //--get target element ---!!!remove
+        let elementToTarget = document.querySelectorAll('.editFelix');
+            console.log(elementToTarget);
+
+	        if (!e.target.matches('.editFelix') && e.target === textNode) return target;
+	          console.log(e.target);
+
+        // instantiate UI
+        const ui = new UI();
+        //edit todo
+         ui.editTodoItem(e.target);
+     }
+     
+
+   e.preventDefault();
+
+
+});
+
+//-------------event listern for click edit button#
+
+document.querySelector("button.edit").addEventListener('click',
+  function (e) { 
+
+    let editButton = document.querySelector("button.edit");
+
+     const ui = new UI();
+     //edit todo
+      ui.editTask(editButton);
+      ui.joinTaskEvent();
+
+      e.preventDefault();
+
+   } );
+
+
+
+
 
 
